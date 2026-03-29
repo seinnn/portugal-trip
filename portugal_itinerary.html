@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>포르투갈 여행 일정</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f0;color:#1a1a18;font-size:14px}
+.top-bar{background:#1a1a18;color:#f5f5f0;padding:14px 16px;position:sticky;top:0;z-index:100}
+.top-title{font-size:15px;font-weight:600;margin-bottom:8px}
+.day-nav{display:flex;gap:5px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.day-nav::-webkit-scrollbar{display:none}
+.dn{padding:5px 10px;border-radius:20px;border:1px solid rgba(255,255,255,0.25);font-size:12px;cursor:pointer;background:transparent;color:rgba(255,255,255,0.7);white-space:nowrap;flex-shrink:0}
+.dn.on{background:#fff;color:#1a1a18;border-color:#fff;font-weight:600}
+.content{padding:12px 14px;max-width:480px;margin:0 auto}
+.day{display:none}
+.day.show{display:block}
+.day-title{font-size:16px;font-weight:700;margin-bottom:4px}
+.day-sub{font-size:12px;color:#666;margin-bottom:12px}
+.move-bar{background:#e8e4db;border-radius:10px;padding:10px 13px;font-size:12px;color:#555;margin-bottom:10px;border-left:3px solid #1a1a18}
+.move-bar b{color:#1a1a18;font-weight:700}
+.block{background:#fff;border-radius:14px;margin-bottom:10px;overflow:hidden;border:1px solid #e8e8e4}
+.bhead{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid #f0f0ec;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+.bhead-left{display:flex;align-items:center;gap:8px;flex:1}
+.pill{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;flex-shrink:0}
+.p-am{background:#dbeafe;color:#1e40af}
+.p-lunch{background:#dcfce7;color:#166534}
+.p-din{background:#fee2e2;color:#991b1b}
+.p-tip{background:#fef9c3;color:#854d0e}
+.p-move{background:#f3f4f6;color:#374151}
+.bhead-title{font-size:13px;font-weight:600;color:#1a1a18;flex:1}
+.chevron{font-size:10px;color:#aaa;transition:transform .2s;flex-shrink:0}
+.chevron.open{transform:rotate(180deg)}
+.bcontent{display:none}
+.bcontent.open{display:block}
+.step{border-bottom:1px solid #f0f0ec}
+.step:last-child{border-bottom:none}
+.step-row{display:flex;align-items:flex-start}
+.time{width:54px;min-width:54px;padding:10px 4px 2px 14px;font-size:11px;font-weight:700;color:#888;line-height:1.3;flex-shrink:0}
+.info{flex:1;padding:10px 14px 2px 0}
+.place{font-size:13px;font-weight:700;color:#1a1a18;line-height:1.4;margin-bottom:2px}
+.note{font-size:12px;color:#555;line-height:1.5;margin-bottom:4px}
+.transport{display:flex;align-items:flex-start;gap:6px;padding:4px 14px 10px 54px}
+.tbadge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:8px;flex-shrink:0;margin-top:1px}
+.tw{background:#dcfce7;color:#166534}
+.tu{background:#dbeafe;color:#1e40af}
+.tb2{background:#dbeafe;color:#1e40af}
+.tm{background:#ede9fe;color:#5b21b6}
+.tram{background:#fef9c3;color:#854d0e}
+.tinfo{font-size:11px;color:#666;line-height:1.5}
+.mrow{display:flex;gap:8px;padding:9px 14px;border-bottom:1px solid #f0f0ec;align-items:flex-start}
+.mrow:last-child{border-bottom:none}
+.ptag{font-size:11px;font-weight:700;padding:2px 7px;border-radius:8px;flex-shrink:0;margin-top:1px}
+.pa{background:#dcfce7;color:#166534}
+.pb{background:#dbeafe;color:#1e40af}
+.pc{background:#fef9c3;color:#854d0e}
+.mname{font-size:13px;font-weight:700;color:#1a1a18;line-height:1.4}
+.msub{font-size:12px;color:#555;line-height:1.4;margin-top:2px}
+.tip-box{padding:10px 14px;font-size:12px;color:#555;line-height:1.6;border-left:3px solid #f59e0b;background:#fffbeb}
+.warn{color:#b45309;font-weight:600}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div class="top-title">🇵🇹 포르투갈 여행 일정</div>
+  <div class="day-nav">
+    <button class="dn on" onclick="sw(0)">4/5 도착</button>
+    <button class="dn" onclick="sw(1)">4/6 리스본①</button>
+    <button class="dn" onclick="sw(2)">4/7 리스본②</button>
+    <button class="dn" onclick="sw(3)">4/8 리스본③</button>
+    <button class="dn" onclick="sw(4)">4/9 이동</button>
+    <button class="dn" onclick="sw(5)">4/10 포르투①</button>
+    <button class="dn" onclick="sw(6)">4/11 포르투②</button>
+    <button class="dn" onclick="sw(7)">4/12 포르투③</button>
+    <button class="dn" onclick="sw(8)">4/13 포르투④</button>
+    <button class="dn" onclick="sw(9)">4/14 귀환</button>
+    <button class="dn" onclick="sw(10)">4/15 귀국</button>
+  </div>
+</div>
+<div class="content">
+
+<!-- 4/5 도착 -->
+<div class="day show" id="d0">
+  <div class="day-title">4월 5일 (토) — 도착일</div>
+  <div class="day-sub">리스본 20:20 도착 · 숙소: Casa Grande, Alfama</div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-move">이동</span><span class="bhead-title">공항 → 숙소</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">20:20</div><div class="info"><div class="place">리스본 공항 도착</div><div class="note">Humberto Delgado Airport</div></div></div>
+        <div class="transport"><span class="tbadge tu">우버</span><span class="tinfo">공항 → 숙소 약 20~25분 · 15~20유로 · 짐 있으니 우버 X or Comfort</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">21:00</div><div class="info"><div class="place">Casa Grande 체크인</div><div class="note">Rua de São João da Praça 83, Alfama</div></div></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">21:30</div><div class="info"><div class="place">Pingo Doce 장보기</div><div class="note">내일 아침거리 구입 · 24시간 지점 확인</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 근처</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-din">저녁</span><span class="bhead-title">가볍게 해결</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">Osteria Bellosguardo</div><div class="msub">산타루치아 전망대 옆 이탈리안 · 가격 착하고 늦게까지 운영 · 숙소 도보 3분</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">Alfama 골목 타스카</div><div class="msub">숙소 근처 소규모 포르투갈 동네 식당</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">마트 장봐서 숙소에서</div><div class="msub">Pingo Doce 들러 저녁 간단히 + 내일 아침거리</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 4/6 리스본① -->
+<div class="day" id="d1">
+  <div class="day-title">4월 6일 (일) — 리스본 1일차</div>
+  <div class="day-sub">Alfama 중심 · 28번 트램 · 전망대 노을</div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오전</span><span class="bhead-title">Alfama 도보 코스</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">10:00</div><div class="info"><div class="place">산타루치아 전망대</div><div class="note">Largo de Santa Luzia · 24시간 무료 · Alfama & 테주강 뷰</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 → 3분 (100m)</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">10:20</div><div class="info"><div class="place">포르타스 두 솔 전망대</div><div class="note">Largo Portas do Sol · 산타루치아 바로 옆 · 24시간 무료 · 둘 다 묶어서</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">산타루치아 → 1분 (50m)</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">10:45</div><div class="info"><div class="place">상조르즈 성</div><div class="note">R. de Santa Cruz do Castelo · 매일 09:00 운영 (월요일도 OK) · 입장료 성인 15유로</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">포르타스 두 솔 → 7분 (오르막 500m)</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-lunch">점심</span><span class="bhead-title">Alfama 점심</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">Taverna Alfacinha</div><div class="msub">해물밥·문어 · 규모 작아 오픈런 추천 · 옆집 레스토랑 우마 동급</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">레스토랑 우마</div><div class="msub">해산물 · 줄 길면 바로 옆집으로</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">Frade dos Mares</div><div class="msub">해산물 요리 · Alfama 인근</div></div></div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오후</span><span class="bhead-title">28번 트램 + Bica 포토존 + 카페 + 노을</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">14:00</div><div class="info"><div class="place">28번 트램 탑승</div><div class="note">Largo das Portas do Sol 정류장에서 탑승 (숙소 도보 3분). 나베간테 카드 태그 1.85유로 or 기사에게 현금 3.2유로. 가방 앞으로! 소매치기 주의. 주요 경유: Alfama → Baixa → Chiado → Estrela, 약 40분</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">점심 → 포르타스 두 솔 정류장 3~5분</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">15:00</div><div class="info"><div class="place">Bica 푸니쿨라 포토존 하차</div><div class="note">Chiado 부근 하차 후 도보 5분 → Largo do Calhariz. 좁은 경사 골목 노란 푸니쿨라 포토스팟. ⚠️ 2026년 현재 운행 중단 — 외관 포토만 가능</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">트램 하차 → Bica 5분</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">15:30</div><div class="info"><div class="place">Café da Garagem</div><div class="note">Costa do Castelo 75 · 수~일 10:30 운영, 월·화 휴무 → 오늘(일) 정상 운영. Bica에서 언덕 오르막이라 우버 추천</div></div></div>
+        <div class="transport"><span class="tbadge tu">우버</span><span class="tinfo">Bica → Café da Garagem · 오르막 언덕 · 3~4유로</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">17:30</div><div class="info"><div class="place">숙소 귀환 & 휴식</div><div class="note"></div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">카페 → 숙소 10분 (내리막)</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">19:00</div><div class="info"><div class="place">산타루치아 전망대 노을</div><div class="note">숙소 도보 3분 · 4월 일몰 약 20:15 · 황금빛 노을 타임</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 → 3분</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-din">저녁</span><span class="bhead-title">Alfama 저녁</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">Floresta das Escadinhas</div><div class="msub">포트와인 필수 · 짧게만 운영 · 예약 강추 · 숙소 도보 5분</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">Osteria Bellosguardo</div><div class="msub">산타루치아 전망대 바로 옆 · 이탈리안 · 가격 착함</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">O castico restaurant</div><div class="msub">해산물 · 별점 4.7 · Alfama 인근</div></div></div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-tip">꿀팁</span><span class="bhead-title">오늘 이동 요약 + 아 진지냐</span></div><span class="chevron">▼</span></div>
+    <div class="bcontent"><div class="tip-box">대부분 도보 가능. 트램 1.85유로(카드) or 3.2유로(현금). Bica→카페만 우버(3~4유로). 저녁 후 Alfama 골목 포장마차에서 아 진지냐 1~2유로!</div></div>
+  </div>
+</div>
+
+<!-- 4/7 리스본② 월요일 쇼핑 -->
+<div class="day" id="d2">
+  <div class="day-title">4월 7일 (월) — 리스본 2일차</div>
+  <div class="day-sub">시내 카페 투어 + 쇼핑 · 월요일 = 실내 관광지 휴무 없는 코스로 배정</div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오전</span><span class="bhead-title">나타 카페 투어 → 시내</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">09:00</div><div class="info"><div class="place">Fora Artisan Pastry</div><div class="note">Calçada de São Vicente 95 · 매일 08:00 운영 · 숙소 도보 5분 · 트램 지나가는 골목 포토존 · 나타·빵 유명</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 → 5분 (300m)</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">10:00</div><div class="info"><div class="place">호시우 광장 (Rossio)</div><div class="note">Praça Dom Pedro IV · 24시간 · 리스본 중심 광장</div></div></div>
+        <div class="transport"><span class="tbadge tu">우버</span><span class="tinfo">Fora Pastry → 호시우 광장 · 약 5유로 · 도보 25분도 가능</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">10:30</div><div class="info"><div class="place">산타 후스타 엘리베이터</div><div class="note">R. de Santa Justa · 호시우 도보 3분 · 리스보아 카드 소지 시 무료 · 전망대 뷰</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">호시우 광장 → 3분</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">11:00</div><div class="info"><div class="place">Manteigaria (나타)</div><div class="note">Rua do Loreto 2, Chiado · 매일 08:00 운영 · 리스본 3대 나타 · 에스프레소 세트</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">산타 후스타 → Chiado 10분</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">11:30</div><div class="info"><div class="place">Praça do Comércio</div><div class="note">24시간 · 강변 산책 포토스팟 · Chiado에서 내리막 10분</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">Chiado → 코메르시우 10분 (내리막)</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-lunch">점심</span><span class="bhead-title">시아두/바이샤</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">O Talho</div><div class="msub">R. Carlos Testa 1B · 미쉐린 스테이크 · 매일 12:00~16:00 & 19:00~23:30 · 예약 필수</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">Floresta das Escadinhas</div><div class="msub">전날 못 갔다면 오늘 · 포트와인 포함</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">Taverna Alfacinha</div><div class="msub">해물밥 다시 먹고 싶다면</div></div></div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오후</span><span class="bhead-title">쇼핑 & 기념품</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">14:30</div><div class="info"><div class="place">El Corte Inglés or Chiado 거리</div><div class="note">기념품 · 아줄레주 타일 · 포트와인</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">점심 식당 → Chiado 도보권</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">16:00</div><div class="info"><div class="place">산티니 젤라또</div><div class="note">Chiado 인근 · 수제 콘으로</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">Chiado 도보권</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">17:00</div><div class="info"><div class="place">숙소 귀환 & 휴식</div><div class="note">내일 벨렝 이동 대비</div></div></div>
+        <div class="transport"><span class="tbadge tu">우버</span><span class="tinfo">Chiado → 숙소 (Alfama) · 오르막 · 약 5유로</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-din">저녁</span><span class="bhead-title">한식 충전</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">Panda Cantina</div><div class="msub">라멘+중식 · 매운 거 땡길 때 · 두부튀김 꼭 추가</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">Atalho Real</div><div class="msub">스테이크집 · O Talho 예약 못 했을 때 대안</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">숙소에서 간단히</div><div class="msub">내일 벨렝 이동 대비 · 마트 식재료로</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 4/8 리스본③ 벨렝 -->
+<div class="day" id="d3">
+  <div class="day-title">4월 8일 (화) — 리스본 3일차</div>
+  <div class="day-sub">벨렝 지구 + LX Factory · 화요일부터 제로니무스 운영!</div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오전</span><span class="bhead-title">벨렝 지구 명소</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">09:00</div><div class="info"><div class="place">숙소 → 벨렝 이동</div><div class="note">Alfama → 벨렝 약 25~30분</div></div></div>
+        <div class="transport"><span class="tbadge tu">우버</span><span class="tinfo">Alfama → 벨렝 · 약 25분 · 10~12유로</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">09:30</div><div class="info"><div class="place">파스테이스 드 벨렝</div><div class="note">R. de Belém 84~92 · 매일 08:00 운영 · 원조 나타 · 에스프레소 세트 · 먼저 아침 해결</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">우버 하차 후 바로 (수도원 옆)</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">10:00</div><div class="info"><div class="place">제로니무스 수도원</div><div class="note">Praça do Império · 화~일 09:30~17:30, <span class="warn">월요일 휴무</span> → 오늘(화) 정상 운영. 사전 예약 필수 · 리스보아 카드 무료 · 1~1.5시간</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">파스테이스 드 벨렝 → 도보 2분</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">11:30</div><div class="info"><div class="place">발견기념비 + 벨렝탑 외관</div><div class="note">발견기념비 도보 10분. ⚠️ 벨렝탑 현재 공사 중 (2026.2 기준 입장 불가) · 외관 포토만. 강변 산책하며 이동</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">수도원 → 발견기념비 10분 → 벨렝탑 15분</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-lunch">점심</span><span class="bhead-title">LX Factory 인근</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">Dragon Inn</div><div class="msub">홍콩식 중식 · 화~일 운영, <span class="warn">월요일 휴무</span> → 오늘(화) 정상 운영 · 가성비 최고</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">Clube do Bacalhau</div><div class="msub">대구 요리 전문 · 포르투갈 정통</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">Restaurante Cabaças</div><div class="msub">포르투갈 요리 · 가격 합리적</div></div></div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오후</span><span class="bhead-title">LX Factory → 귀환</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">14:30</div><div class="info"><div class="place">LX Factory</div><div class="note">R. Rodrigues de Faria 103 · 평일 10:30 운영 · 편집샵·기념품·카페 · 여유롭게</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">Dragon Inn → LX Factory 5분</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">16:30</div><div class="info"><div class="place">숙소 귀환 & 충분한 휴식</div><div class="note">내일 기차 이동 대비</div></div></div>
+        <div class="transport"><span class="tbadge tu">우버</span><span class="tinfo">LX Factory → 숙소 (Alfama) · 약 20분 · 10~12유로</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-din">저녁</span><span class="bhead-title">리스본 맛집</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">Solar dos Presuntos</div><div class="msub">호날두 단골 · 월~토 운영, <span class="warn">일요일 휴무</span> → 오늘(화) 정상 운영 · 예약 필수</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">Bessa Restaurante</div><div class="msub">해산물 · 별점 4.8 · 가성비</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">Panda Cantina</div><div class="msub">라멘+중식 · 두부튀김 추가</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 4/9 이동 -->
+<div class="day" id="d4">
+  <div class="day-title">4월 9일 (수) — 이동일</div>
+  <div class="day-sub">11:39 Lisboa Oriente → 14:43 Porto Campanhã (1등석)</div>
+  <div class="move-bar">🚆 <b>11:39</b> Lisboa Oriente 출발 → <b>14:43</b> Porto Campanhã 도착</div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오전</span><span class="bhead-title">체크아웃 → 역 이동</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">09:00</div><div class="info"><div class="place">숙소 조식 후 체크아웃</div><div class="note"></div></div></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">10:00</div><div class="info"><div class="place">Alfama 마지막 산책 + 나타 한 개</div><div class="note">가볍게 동네 한 바퀴</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 근처</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">11:00</div><div class="info"><div class="place">Lisboa Oriente역 이동</div><div class="note">기차 11:39 출발 · 여유 있게 이동</div></div></div>
+        <div class="transport"><span class="tbadge tu">우버</span><span class="tinfo">Alfama → Lisboa Oriente역 · 약 15분 · 8~10유로 · 짐 있으니 우버 추천</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오후</span><span class="bhead-title">포르투 도착 + 동네 파악</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">14:43</div><div class="info"><div class="place">캄파냐역 → 숙소 이동</div><div class="note">Porto Campanhã역 · 숙소: Rua Alexandre Braga 26 (상벤투역 도보 5분)</div></div></div>
+        <div class="transport"><span class="tbadge tb2">볼트</span><span class="tinfo">캄파냐역 → 숙소 · 약 15분 · 7~9유로</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">15:30</div><div class="info"><div class="place">체크인 + Pingo Doce 장보기</div><div class="note">아침거리 구입</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 근처</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">17:00</div><div class="info"><div class="place">동루이스 다리 → 히베이라 광장</div><div class="note">숙소 도보 10분 · 가볍게 동네 파악</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 → 동루이스 다리 10분</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-din">저녁</span><span class="bhead-title">포르투 첫 저녁</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">Taberna Dos Mercadores</div><div class="msub">문어밥·생선구이 · 숙소 도보권 · 예약 추천</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">Tempêro D'Maria</div><div class="msub">해물밥+먹물파스타 · 노션 원픽</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">Time Out Market Porto</div><div class="msub">상벤투역 옆 푸드코트 · 피곤할 때 편하게</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 4/10 포르투① -->
+<div class="day" id="d5">
+  <div class="day-title">4월 10일 (목) — 포르투 1일차</div>
+  <div class="day-sub">상벤투역 도보권 · 아줄레주 성당 · 렐루서점 18:00</div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오전</span><span class="bhead-title">브런치 + 아줄레주 성당 투어</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">09:00</div><div class="info"><div class="place">Floresta cafe by Hungry Biker</div><div class="note">별점 높은 브런치 카페 · 숙소 근처</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 근처</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">10:00</div><div class="info"><div class="place">상벤투역 아줄레주 감상</div><div class="note">Praça de Almeida Garrett · 무료 · 2만 개 타일 벽화 · 기차역 홀 안으로 입장</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 → 5분 (350m)</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">10:30</div><div class="info"><div class="place">산투 일드폰수 성당</div><div class="note">상벤투역 도보 5분 · 아줄레주 외벽 포토스팟</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">상벤투역 → 5분</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">11:00</div><div class="info"><div class="place">카르무 성당</div><div class="note">R. do Carmo · 매일 09:30~17:00 · 아줄레주 명소 · 입장료 7유로 · 옆에 Fernandes Mattos 소품샵</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">산투 일드폰수 → 카르무 10분</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">11:30</div><div class="info"><div class="place">클레리구스 탑 전망대</div><div class="note">포르투 파노라마 뷰 · 카르무에서 도보 3분 · 계단 많음 주의</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">카르무 → 클레리구스 3분</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-lunch">점심</span><span class="bhead-title">프란세지냐 도전!</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">Brasão Aliados</div><div class="msub">프란세지냐 맛집 · 클레리구스 탑 근처 · 오픈런 or The Fork 앱 예약</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">카페 산티아고</div><div class="msub">포르투 대표 프란세지냐 · 줄 서는 맛집</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">Conga</div><div class="msub">비파냐+프란세지냐 · 간단하게</div></div></div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오후</span><span class="bhead-title">볼량 시장 → 수정궁 → 휴식 → 렐루서점</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">14:00</div><div class="info"><div class="place">볼량 시장 (Mercado do Bolhão)</div><div class="note">R. Formosa 322 · 월~토 08:00~19:00, <span class="warn">일요일 휴무</span> → 오늘(목) 정상 운영</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">점심 식당 → 볼량 시장 5~10분</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">15:00</div><div class="info"><div class="place">수정궁 정원 (Palácio de Cristal)</div><div class="note">산책 · 포토스팟 · 무료 · 볼량에서 도보 20분 or 볼트 5분</div></div></div>
+        <div class="transport"><span class="tbadge tb2">볼트</span><span class="tinfo">볼량 → 수정궁 · 약 5분 · 3~4유로 (도보 20분도 가능)</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">16:00</div><div class="info"><div class="place">숙소 귀환 & 휴식</div><div class="note">렐루 전 체력 보충 · 필수!</div></div></div>
+        <div class="transport"><span class="tbadge tb2">볼트</span><span class="tinfo">수정궁 → 숙소 · 약 5분 · 4~5유로</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">18:00</div><div class="info"><div class="place">렐루 서점 입장</div><div class="note">R. das Carmelitas 144 · 처음부터 18:00 시간대 온라인 예약 · 입장권 12유로 · 마감 1시간 전 = 단독샷 가능 · 숙소 도보 10분</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 → 렐루 서점 10분</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-din">저녁</span><span class="bhead-title">렐루 근처</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">Adega Dona Antónia</div><div class="msub">문어·대구 요리 · 예약 추천</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">볼타리아</div><div class="msub">포르투 가정식 타파스 · 별점 4.8 · 가성비 최고</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">Taberna dos Fernandes</div><div class="msub">포르투갈 가정식 · 별점 4.8</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 4/11 포르투② -->
+<div class="day" id="d6">
+  <div class="day-title">4월 11일 (금) — 포르투 2일차</div>
+  <div class="day-sub">히베이라 → 동루이스 다리 → 가이아 와이너리</div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오전</span><span class="bhead-title">히베이라 → 가이아 와이너리</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">09:00</div><div class="info"><div class="place">숙소 조식</div><div class="note">오늘 많이 걸어요 · 든든하게</div></div></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">10:00</div><div class="info"><div class="place">히베이라 강변 + My Coffee Porto</div><div class="note">강뷰 카페에서 커피 · 숙소 도보 10분</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 → 히베이라 10분</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">11:00</div><div class="info"><div class="place">동루이스 다리 건너 가이아로</div><div class="note">다리 위층으로 걸어서 이동 · 뷰 최고 · 아래층은 차도, 위층 보행자·메트로 공유</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">히베이라 → 다리 건너 가이아 약 15분</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">11:30</div><div class="info"><div class="place">테일러스 와이너리 투어</div><div class="note">Rua do Choupelo 250, Gaia · 매일 10:00~18:15 · 🇰🇷 한국어 오디오 가이드 제공 · 시음 포함 · 사전 예약 추천. 다리에서 도보 10분 오르막 · 힘들면 케이블카 이용 (가이아 케이블카, 편도 4유로)</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">다리 → 와이너리 오르막 10분 · 힘들면 가이아 케이블카 4유로</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-lunch">점심</span><span class="bhead-title">가이아/히베이라</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">Restaurante Casario</div><div class="msub">도루강 뷰 코스요리 1인 55유로 · 예약 필수 · 가이아 강변</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">Muro do Bacalhau</div><div class="msub">동루이스 다리 뷰 · 가성비 좋음</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">Ribeira Square</div><div class="msub">히베이라 광장 해물밥 맛집</div></div></div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오후</span><span class="bhead-title">모루정원 → 와인바 → 귀환</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">14:30</div><div class="info"><div class="place">모루정원 (Jardim do Morro)</div><div class="note">Jardim do Morro, Gaia · 24시간 무료 · 포르투 전경 최고 포토스팟 · 와이너리 도보 5분 내리막</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">와이너리 → 모루정원 5분 (내리막)</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">15:30</div><div class="info"><div class="place">Arco Das Verdades</div><div class="note">별점 5.0 뷰 좋은 와인바 · 모루정원 근처</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">모루정원 근처</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">17:00</div><div class="info"><div class="place">숙소 귀환 & 충분한 휴식</div><div class="note">다리 많이 걸은 날</div></div></div>
+        <div class="transport"><span class="tbadge tb2">볼트</span><span class="tinfo">가이아/모루정원 → 숙소 · 약 10분 · 5~7유로</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-din">저녁</span><span class="bhead-title">한식 충전</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">SIKTAK 식탁</div><div class="msub">포르투 한식당 · 별점 4.7 · 이모들 한식 충전!</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">Iguarias de HANÓI</div><div class="msub">쌀국수 · 별점 4.9</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">TAB - TakeABreak</div><div class="msub">아시아 요리 · 별점 4.8</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 4/12 포르투③ -->
+<div class="day" id="d7">
+  <div class="day-title">4월 12일 (토) — 포르투 3일차</div>
+  <div class="day-sub">여유 있는 날 · 대성당 + 포즈 해변</div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오전</span><span class="bhead-title">나타 + 대성당</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">09:30</div><div class="info"><div class="place">Castro - Atelier de Pastéis de Nata</div><div class="note">포르투 3대 나타 · 에스프레소 세트</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 근처</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">10:30</div><div class="info"><div class="place">포르투 대성당</div><div class="note">숙소 도보권 · 아줄레주 내부 인상적</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 → 대성당 10분</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">11:30</div><div class="info"><div class="place">팔라시우 다 볼사</div><div class="note">내부 투어 인상적 · 사전 예약 권장 · 대성당 도보 3분</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">대성당 → 볼사 3분</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-lunch">점심</span><span class="bhead-title">시내 점심</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">볼타리아</div><div class="msub">포르투 가정식 타파스 · 별점 4.8 · 가성비 최고</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">A Sandeira do Porto</div><div class="msub">포르투갈식 샌드위치 · €10~15</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">Terreiro / Adega São Nicolau</div><div class="msub">해물밥 · 포르투갈 가정식</div></div></div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오후</span><span class="bhead-title">포즈 해변 산책</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">14:30</div><div class="info"><div class="place">포즈 (Foz do Douro) 해변</div><div class="note">대서양 바람 산책 · 1번 트램 (Infante 정류장 출발) or 볼트 15분</div></div></div>
+        <div class="transport"><span class="tbadge tb2">볼트</span><span class="tinfo">시내 → 포즈 · 약 15분 · 6~8유로 (1번 트램도 가능)</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">15:30</div><div class="info"><div class="place">Tavi - Confeitaria da Foz</div><div class="note">포즈 해변 뷰 카페 · 대서양 보며 커피</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">해변 산책 후 바로</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">17:00</div><div class="info"><div class="place">숙소 귀환 & 휴식</div><div class="note"></div></div></div>
+        <div class="transport"><span class="tbadge tb2">볼트</span><span class="tinfo">포즈 → 숙소 · 약 15분 · 6~8유로</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">18:30</div><div class="info"><div class="place">Parque das Virtudes 전망대 노을</div><div class="note">숙소 도보권 · 조용한 로컬 전망대</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 근처 도보</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-din">저녁</span><span class="bhead-title">포르투 맛집</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">테라 노바</div><div class="msub">문어 리조또 맛집 · 별점 4.4</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">Impar Flores</div><div class="msub">뽈뽀(문어) 맛집</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">Cozinha dos Lóios</div><div class="msub">새우구이·파스타 맛집</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 4/13 포르투④ -->
+<div class="day" id="d8">
+  <div class="day-title">4월 13일 (일) — 포르투 4일차</div>
+  <div class="day-sub">쇼핑 + 기념품 · ⚠️ 볼량 시장 일요일 휴무</div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오전</span><span class="bhead-title">브런치 + 쇼핑</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">09:30</div><div class="info"><div class="place">Do Norte Café by Hungry Biker</div><div class="note">브런치 맛집 · 숙소 근처</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 근처</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">11:00</div><div class="info"><div class="place">Rua de Santa Catarina 쇼핑</div><div class="note">Via Catarina 쇼핑몰 (화장실 여기서!) · 숙소 도보 10분</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 → Santa Catarina 10분</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">11:30</div><div class="info"><div class="place">Fernandes Mattos 소품샵 + Collectus 기념품</div><div class="note">포르투 감성 소품 · 아줄레주 타일 · 포트와인</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">Santa Catarina 인근</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">12:30</div><div class="info"><div class="place">Chocolataria Equador</div><div class="note">초콜릿 선물용</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-lunch">점심</span><span class="bhead-title">마지막 포르투 점심</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">Casa Viúva</div><div class="msub">현지인 맛집 · 별점 4.8</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">Porto Antigo Comida Caseira</div><div class="msub">가정식 · 별점 4.8</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">Mercado Bom Sucesso 푸드코트</div><div class="msub">다양한 메뉴 · <span class="warn">볼량 시장 일요일 휴무</span>이니 여기로</div></div></div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오후</span><span class="bhead-title">젤라또 + 짐 정리</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">15:00</div><div class="info"><div class="place">Gelataria Portuense</div><div class="note">포트와인맛 젤라또 꼭! · 별점 4.7</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">시내 도보권</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">15:30</div><div class="info"><div class="place">숙소 짐 정리 & 휴식</div><div class="note">내일 12:45 기차 대비 · 일찍 쉬기</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">시내 → 숙소</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-din">저녁</span><span class="bhead-title">포르투 마지막 저녁</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">Meia-Nau Porto</div><div class="msub">해물밥 맛집 · 별점 4.7</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">BEHER Porto</div><div class="msub">이베리코 맛집 · 별점 4.5</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">Lareira - Baixa</div><div class="msub">포르투갈 요리 · €10~15</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 4/14 귀환 -->
+<div class="day" id="d9">
+  <div class="day-title">4월 14일 (월) — 귀환일</div>
+  <div class="day-sub">12:45 Porto Campanhã → 15:52 Lisboa Oriente</div>
+  <div class="move-bar">🚆 <b>12:45</b> Porto Campanhã 출발 → <b>15:52</b> Lisboa Oriente 도착</div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오전</span><span class="bhead-title">체크아웃 → 기차</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">09:00</div><div class="info"><div class="place">Prégar Baixa 샌드위치 포장</div><div class="note">기차 안 도시락 · 고기 샌드위치 강추 · 숙소 근처</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 근처</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">10:00</div><div class="info"><div class="place">체크아웃</div><div class="note"></div></div></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">11:30</div><div class="info"><div class="place">캄파냐역 이동</div><div class="note">숙소 → 캄파냐 약 15~20분 · 짐 있으니 볼트 추천</div></div></div>
+        <div class="transport"><span class="tbadge tb2">볼트</span><span class="tinfo">숙소 → 캄파냐역 · 약 15분 · 7~9유로</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오후</span><span class="bhead-title">리스본 도착 + 마지막 산책</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">15:52</div><div class="info"><div class="place">Oriente역 도착 → 숙소</div><div class="note">짐 내려놓고 잠깐 휴식</div></div></div>
+        <div class="transport"><span class="tbadge tu">우버</span><span class="tinfo">Oriente역 → 숙소 (Alfama) · 약 15분 · 8~10유로</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">17:30</div><div class="info"><div class="place">Chiado 마지막 산책</div><div class="note">산티니 젤라또 · 못 산 기념품 마무리</div></div></div>
+        <div class="transport"><span class="tbadge tu">우버</span><span class="tinfo">숙소 → Chiado · 약 10분 · 5~6유로</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-din">저녁</span><span class="bhead-title">리스본 마지막 만찬</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">Floresta das Escadinhas</div><div class="msub">못 갔으면 오늘! 포트와인 필수 · 예약</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">O castico restaurant</div><div class="msub">해산물 · 별점 4.7</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">Bessa Restaurante</div><div class="msub">해산물 · 별점 4.8 · 가성비</div></div></div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-tip">꿀팁</span><span class="bhead-title">아 진지냐로 마무리</span></div><span class="chevron">▼</span></div>
+    <div class="bcontent"><div class="tip-box">저녁 후 Alfama 골목 체리 리큐어 한 잔으로 리스본 마무리!</div></div>
+  </div>
+</div>
+
+<!-- 4/15 귀국 -->
+<div class="day" id="d10">
+  <div class="day-title">4월 15일 (화) — 귀국일</div>
+  <div class="day-sub">22:15 리스본 출발 → 4/16 19:15 서울 도착</div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-am">오전~오후</span><span class="bhead-title">느긋한 마지막 날</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">09:30</div><div class="info"><div class="place">숙소 조식 + 짐 최종 정리</div><div class="note"></div></div></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">11:00</div><div class="info"><div class="place">Alfama 마지막 산책</div><div class="note">산타루치아 전망대 · 마지막 사진</div></div></div>
+        <div class="transport"><span class="tbadge tw">도보</span><span class="tinfo">숙소 → 3분</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">12:30</div><div class="info"><div class="place">산티니 젤라또</div><div class="note">Chiado · 못 먹었다면 오늘이 마지막</div></div></div>
+        <div class="transport"><span class="tbadge tu">우버</span><span class="tinfo">숙소 → Chiado · 10분 · 5유로</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-lunch">이른 저녁</span><span class="bhead-title">공항 가기 전 마지막 식사</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="mrow"><span class="ptag pa">A</span><div><div class="mname">Frade dos Mares</div><div class="msub">해산물 · 별점 4.7 · 든든하게 마지막 식사</div></div></div>
+      <div class="mrow"><span class="ptag pb">B</span><div><div class="mname">O castico restaurant</div><div class="msub">해산물 · 별점 4.7</div></div></div>
+      <div class="mrow"><span class="ptag pc">C</span><div><div class="mname">Panda Cantina</div><div class="msub">귀국 전 마지막 라멘 충전</div></div></div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="bhead" onclick="tog(this)"><div class="bhead-left"><span class="pill p-move">공항 이동</span><span class="bhead-title">18:30~19:00 출발 · 3시간 전</span></div><span class="chevron open">▼</span></div>
+    <div class="bcontent open">
+      <div class="step">
+        <div class="step-row"><div class="time">18:30</div><div class="info"><div class="place">Humberto Delgado 공항 이동</div><div class="note">3시간 전 도착 권장</div></div></div>
+        <div class="transport"><span class="tbadge tu">우버</span><span class="tinfo">숙소 → 공항 · 약 20분 · 15~20유로</span></div>
+      </div>
+      <div class="step">
+        <div class="step-row"><div class="time">22:15</div><div class="info"><div class="place">✈️ 리스본 출발</div><div class="note">대한항공 · 서울 4/16 19:15 도착</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+function sw(i){
+  document.querySelectorAll('.day').forEach(function(d,j){d.classList.toggle('show',j===i)});
+  document.querySelectorAll('.dn').forEach(function(b,j){b.classList.toggle('on',j===i)});
+  window.scrollTo(0,0);
+}
+function tog(h){
+  var c=h.nextElementSibling;
+  var ch=h.querySelector('.chevron');
+  var open=c.classList.toggle('open');
+  if(ch)ch.classList.toggle('open',open);
+}
+</script>
+</body>
+</html>
