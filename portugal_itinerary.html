@@ -65,18 +65,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="top-bar">
   <div class="top-title">🇵🇹 포르투갈 여행 일정</div>
   <div class="day-nav">
-    <button class="dn on" onclick="sw(0)">4/5 도착</button>
-    <button class="dn" onclick="sw(1)">4/6 리스본①</button>
-    <button class="dn" onclick="sw(2)">4/7 리스본②</button>
-    <button class="dn" onclick="sw(3)">4/8 리스본③</button>
-    <button class="dn" onclick="sw(4)">4/9 이동</button>
-    <button class="dn" onclick="sw(5)">4/10 포르투①</button>
-    <button class="dn" onclick="sw(6)">4/11 포르투②</button>
-    <button class="dn" onclick="sw(7)">4/12 포르투③</button>
-    <button class="dn" onclick="sw(77)">🚆 근교</button>
-    <button class="dn" onclick="sw(8)">4/13 포르투④</button>
-    <button class="dn" onclick="sw(9)">4/14 귀환</button>
-    <button class="dn" onclick="sw(10)">4/15 귀국</button>
+    <button class="dn on" onclick="sw('d0',this)">4/5 도착</button>
+    <button class="dn" onclick="sw('d1',this)">4/6 리스본①</button>
+    <button class="dn" onclick="sw('d2',this)">4/7 리스본②</button>
+    <button class="dn" onclick="sw('d3',this)">4/8 리스본③</button>
+    <button class="dn" onclick="sw('d4',this)">4/9 이동</button>
+    <button class="dn" onclick="sw('d5',this)">4/10 포르투①</button>
+    <button class="dn" onclick="sw('d6',this)">4/11 포르투②</button>
+    <button class="dn" onclick="sw('d7',this)">4/12 포르투③</button>
+    <button class="dn" onclick="sw('d_trip',this)">🚆 근교</button>
+    <button class="dn" onclick="sw('d8',this)">4/13 포르투④</button>
+    <button class="dn" onclick="sw('d9',this)">4/14 귀환</button>
+    <button class="dn" onclick="sw('d10',this)">4/15 귀국</button>
   </div>
 </div>
 <div class="content">
@@ -794,18 +794,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 </div>
 <script>
-function sw(i){
-  var days = document.querySelectorAll('.day');
-  var tabs = document.querySelectorAll('.dn');
-  days.forEach(function(d){d.classList.remove('show')});
-  tabs.forEach(function(b){b.classList.remove('on')});
-  if(i===77){
-    document.getElementById('d_trip').classList.add('show');
-    document.querySelectorAll('.dn')[8].classList.add('on');
-  } else {
-    if(days[i]) days[i].classList.add('show');
-    if(tabs[i]) tabs[i].classList.add('on');
-  }
+var _cur=null,_curBtn=null;
+function sw(id,btn){
+  if(_cur) _cur.classList.remove('show');
+  if(_curBtn) _curBtn.classList.remove('on');
+  var d=document.getElementById(id);
+  if(d){d.classList.add('show');_cur=d;}
+  btn.classList.add('on');_curBtn=btn;
   window.scrollTo(0,0);
 }
 function tog(h){
@@ -814,6 +809,9 @@ function tog(h){
   var open=c.classList.toggle('open');
   if(ch)ch.classList.toggle('open',open);
 }
+  var firstDay=document.getElementById('d0');
+  var firstBtn=document.querySelector('.dn');
+  if(firstDay&&firstBtn){_cur=firstDay;_curBtn=firstBtn;firstDay.classList.add('show');firstBtn.classList.add('on');}
 </script>
 </body>
 </html>
